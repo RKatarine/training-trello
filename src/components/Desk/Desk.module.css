@@ -1,0 +1,20 @@
+.board {
+  position: relative;
+  overflow-y: auto;
+  outline: none;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  background-color: #026aa7;
+  justify-content: center;
+}
+
+
+
+.wrapper {
+  height: 100%;
+  padding-top: 30px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
