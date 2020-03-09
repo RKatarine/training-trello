@@ -1,5 +1,5 @@
 import nanoid from "nanoid";
-import { compose, withHandlers, withState, mapProps } from "recompose";
+import { compose, withHandlers, mapProps } from "recompose";
 import Section from "./Section";
 
 export default compose(

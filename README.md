@@ -1,3 +1,8 @@
+This pet-project inspired by JavaScript.Ninja.
+This is a simple fake trello desk. Where you can add card, edit card and drag card between section using keyboard button (<-/->).
+The goal of this project try using npm-package ```recompose```.
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
