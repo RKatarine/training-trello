@@ -1,9 +1,8 @@
 import React from "react";
-import Section from "../Section/Section";
+import Section from "../Section";
 import styles from "./Desk.module.css";
 
 const Desk = ({ sections }) => {
-  console.log(styles);
   return (
     <div className={styles.board}>
       <div className={styles.wrapper}>

@@ -1,0 +1,31 @@
+.cardEditor {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  padding: 8px;
+}
+
+.cardEditorInput{
+  display: block;
+  height: 32px;
+  padding: 0 8px 0 8px;
+  z-index: 10;
+  color: #444;
+  background-color: #fff;
+  border-bottom: 1px solid #ccc;
+  border-radius: 3px;
+  margin-bottom: 6px;
+  font-size: 16px  ;
+}
+
+.cardEditorBtn {
+  width: 140px;
+  height: 26px;
+  text-align: center;
+  outline: 0;
+  background-color: #5aac44;
+  box-shadow: 0 1px 0 #519839;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+}

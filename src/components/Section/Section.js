@@ -1,17 +1,19 @@
 import React from "react";
-import Card from "../Card/Card";
+import Card from "../Card";
 import styles from "./Section.module.css";
 
-const Section = ({ cards, title }) => (
+const Section = ({ cards, title, onAddCard, onEditCard }) => (
   <section className={styles.section}>
     <header className={styles.section__header}>{title}</header>
     <div className={styles.body}>
       {cards.map(card => (
-        <Card key={card.id} {...card} />
+        <Card onEditCard={onEditCard} key={card.id} {...card} />
       ))}
     </div>
     <footer>
-      <button className={styles.add__card}>Добавить карточку...</button>
+      <button onClick={onAddCard} className={styles.add__card}>
+        Добавить карточку...
+      </button>
     </footer>
   </section>
 );

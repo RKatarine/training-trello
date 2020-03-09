@@ -18,6 +18,7 @@
 }
 
 .add__card{
+  outline: 0;
   background-color: transparent;
   border: none;
   border-radius: 0 0 3px 3px;
