@@ -3,7 +3,7 @@ import styles from "./Card.module.css";
 
 const Card = ({ text }) => (
   <div className={styles.card}>
-    <p>{text}</p>
+    <p className={styles.p}>{text}</p>
   </div>
 );
 Card.defaultProps = {
