@@ -3,6 +3,15 @@ import { compose, withHandlers, withState, mapProps } from "recompose";
 import Section from "./Section";
 
 export default compose(
+  // withHandlers({
+  //   setCards: props => cards => {
+  //     props.onChangeSection({
+  //       id: props.id,
+  //       title: props.title,
+  //       cards
+  //     });
+  //   }
+  // }),
   withState("cards", "setCards", prop => prop.cards),
   withHandlers({
     onAddCard: props => (card = {}) => {

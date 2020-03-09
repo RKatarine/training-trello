@@ -2,7 +2,7 @@ import React from "react";
 import Card from "../Card";
 import styles from "./Section.module.css";
 
-const Section = ({ cards, title, onAddCard, onEditCard }) => (
+const Section = ({ cards, title, onAddCard, onEditCard, onChangeSection }) => (
   <section className={styles.section}>
     <header className={styles.section__header}>{title}</header>
     <div className={styles.body}>
