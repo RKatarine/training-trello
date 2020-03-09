@@ -2,17 +2,17 @@ const sections = [
   {
     id: 0,
     title: "First Section",
-    cards: [{ id: 0, text: "Some card" }]
+    cards: [{ id: 0, text: "Some card 1" }]
   },
   {
     id: 1,
     title: "Second Section",
-    cards: [{ id: 0, text: "Some card" }]
+    cards: []
   },
   {
     id: 2,
     title: "Third Section",
-    cards: [{ id: 0, text: "Some card" }]
+    cards: []
   }
 ];
 export default sections;

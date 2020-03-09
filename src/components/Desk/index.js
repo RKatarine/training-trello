@@ -7,41 +7,36 @@ const RIGHT_KEY = 39;
 export default compose(
   withState("draggedCardInfo", "setDraggedCardInfo", null),
   withHandlers({
-    onChangeSection: ({ sections, onChange }) => editedSectionData => {
+    onChangeSection: ({ sections, onChange }) => editedSection => {
       const editedSectionIndex = sections.findIndex(
-        section => section.id === editedSectionData.id
+        section => section.id === editedSection.id
       );
       if (editedSectionIndex === -1) {
         return;
       }
       const newSections = [
         ...sections.slice(0, editedSectionIndex),
-        {
-          ...sections[editedSectionIndex],
-          ...editedSectionData
-        },
+        { ...sections[editedSectionIndex], ...editedSection },
         ...sections.slice(editedSectionIndex + 1)
       ];
       onChange(newSections);
     }
   }),
   withHandlers({
-    changeCardPosition: props => ({ keyCode }) => {
+    changeCardSection: props => ({ keyCode }) => {
       if (!props.draggedCardInfo) {
         return;
       }
-      console.log(props.draggedCardInfo);
       const currentSectionIndex = props.sections.findIndex(
         section => section.id === props.draggedCardInfo.sectionId
       );
-      const cardIndex = props.sections[currentSectionIndex].findIndex(
+      const cardIndex = props.sections[currentSectionIndex].cards.findIndex(
         card => card.id === props.draggedCardInfo.cardId
       );
       let nextSectionIndex = 0;
       if (keyCode === LEFT_KEY && currentSectionIndex !== 0) {
         nextSectionIndex = currentSectionIndex - 1;
       }
-
       if (
         keyCode === RIGHT_KEY &&
         currentSectionIndex !== props.sections.length - 1
@@ -51,16 +46,15 @@ export default compose(
       if (currentSectionIndex === nextSectionIndex) {
         return;
       }
-      let nextSection = props.section[nextSectionIndex];
-      let currentSection = props.section[currentSectionIndex];
+      let nextSection = props.sections[nextSectionIndex];
+      let currentSection = props.sections[currentSectionIndex];
       nextSection = {
         ...nextSection,
         cards: [...nextSection.cards, currentSection.cards[cardIndex]]
       };
-
       currentSection = {
         ...currentSection,
-        cards: currentSection.cards.filter((_, index) => index === cardIndex)
+        cards: currentSection.cards.filter((_, index) => index !== cardIndex)
       };
       const newSections =
         nextSectionIndex > currentSectionIndex
@@ -84,6 +78,10 @@ export default compose(
               currentSection,
               ...props.sections.slice(currentSectionIndex + 1)
             ];
+      props.setDraggedCardInfo({
+        cardId: props.draggedCardInfo.cardId,
+        sectionId: nextSectionIndex
+      });
       props.onChange(newSections);
     }
   })

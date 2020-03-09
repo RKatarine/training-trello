@@ -6,10 +6,11 @@ const Desk = ({
   sections,
   onChangeSection,
   draggedCardInfo,
-  setDraggedCardInfo
+  setDraggedCardInfo,
+  changeCardSection
 }) => {
   return (
-    <div className={styles.board}>
+    <div className={styles.board} tabIndex="0" onKeyDown={changeCardSection}>
       <div className={styles.wrapper}>
         {sections.map(section => (
           <Section

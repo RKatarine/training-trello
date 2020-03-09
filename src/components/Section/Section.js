@@ -17,7 +17,11 @@ const Section = ({
       <div className={styles.body}>
         {cards.map(card => (
           <Card
-            isActive={draggedCardInfo && draggedCardInfo.cardId === card.id}
+            isActive={
+              draggedCardInfo &&
+              draggedCardInfo.cardId === card.id &&
+              draggedCardInfo.sectionId === id
+            }
             onClick={() => {
               return setDraggedCardInfo(
                 draggedCardInfo && card.id === draggedCardInfo.cardId
@@ -28,7 +32,7 @@ const Section = ({
                     }
               );
             }}
-            onChange={onEditCard}
+            onEditCard={onEditCard}
             key={card.id}
             {...card}
           />

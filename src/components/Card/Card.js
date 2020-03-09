@@ -10,7 +10,6 @@ const Card = ({
   onClick,
   ...props
 }) => {
-  console.log("isActive", isActive);
   return (
     <div onClick={onClick} className={isActive ? styles.active : styles.card}>
       <p className={styles.p}>{text}</p>

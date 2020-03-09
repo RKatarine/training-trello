@@ -3,7 +3,6 @@ import { compose, withHandlers, withState, mapProps } from "recompose";
 import Section from "./Section";
 
 export default compose(
-  withState("cards", "innerSetCards", prop => prop.cards),
   withHandlers({
     setCards: props => cards => {
       props.onChange({
@@ -11,7 +10,6 @@ export default compose(
         title: props.title,
         cards
       });
-      props.innerSetCards(cards);
     }
   }),
   withHandlers({
