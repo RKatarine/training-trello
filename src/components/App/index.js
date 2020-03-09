@@ -5,5 +5,5 @@ import App from "./App";
 
 export default compose(
   withState("sections", "setSections", sections),
-  withLocalStorage(["sections", "setSections"])
+  withLocalStorage([["sections", "setSections"]])
 )(App);

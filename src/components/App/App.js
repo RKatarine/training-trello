@@ -1,6 +1,6 @@
 import React from "react";
 import "./App.css";
-import Desk from "../Desk/Desk";
+import Desk from "../Desk";
 
 const App = ({ sections, setSections }) => {
   return (
@@ -8,7 +8,7 @@ const App = ({ sections, setSections }) => {
       <header className="header">
         <h2 className="header-text">My Desk</h2>
       </header>
-      <Desk sections={sections} onChangeSection={setSections} />
+      <Desk sections={sections} onChange={setSections} />
     </div>
   );
 };

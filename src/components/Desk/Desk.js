@@ -10,7 +10,7 @@ const Desk = ({ sections, onChangeSection }) => {
           <Section
             key={section.id}
             {...section}
-            onChangeSection={onChangeSection}
+            onChange={onChangeSection}
           ></Section>
         ))}
       </div>

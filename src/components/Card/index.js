@@ -5,7 +5,9 @@ import {
   branch,
   renderComponent,
   mapProps,
-  withHandlers
+  withHandlers,
+  renameProp,
+  lifecycle
 } from "recompose";
 import Card from "./Card";
 import CardEditor from "../CardEditor";
@@ -26,7 +28,15 @@ const withShowingEditOnHover = compose(
 
 const withEditing = compose(
   withState("isEditing", "setEditingMode", false),
-  withState("text", "onChange", props => props.text),
+  renameProp("text", "outerText"),
+  withState("text", "onChange", props => props.outerText),
+  lifecycle({
+    componentWillReceiveProps(nextProps) {
+      if (nextProps.outerText !== this.props.outerText) {
+        nextProps.onChange(nextProps.outerText);
+      }
+    }
+  }),
   withHandlers({
     onSave: ({ id, text, onEditCard, setEditingMode }) => () => {
       onEditCard({ id, text });

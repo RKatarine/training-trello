@@ -3,7 +3,7 @@ import { compose, withHandlers } from "recompose";
 
 export default compose(
   withHandlers({
-    onChangeSection: ({ sections, setSections }) => editedSectionData => {
+    onChangeSection: ({ sections, onChange }) => editedSectionData => {
       const editedSectionIndex = sections.findIndex(
         section => section.id === editedSectionData.id
       );
@@ -19,7 +19,7 @@ export default compose(
         ...sections.slice(editedSectionIndex + 1)
       ];
       console.log(newSections);
-      setSections(newSections);
+      onChange(newSections);
     }
   })
 )(Desk);
