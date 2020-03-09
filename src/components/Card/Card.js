@@ -2,9 +2,17 @@ import React from "react";
 import EditIcon from "../common/icons/EditIcon";
 import styles from "./Card.module.css";
 
-const Card = ({ text, setEditingMode, showEditButton, ...props }) => {
+const Card = ({
+  text,
+  setEditingMode,
+  showEditButton,
+  isActive,
+  onClick,
+  ...props
+}) => {
+  console.log("isActive", isActive);
   return (
-    <div className={styles.card}>
+    <div onClick={onClick} className={isActive ? styles.active : styles.card}>
       <p className={styles.p}>{text}</p>
       {showEditButton && (
         <button onClick={setEditingMode} className={styles.edit__button}>
