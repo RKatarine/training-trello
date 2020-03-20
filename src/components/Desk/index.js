@@ -1,13 +1,27 @@
+import React, { Component } from "react";
 import Desk from "./Desk";
-import { compose, withHandlers, withState } from "recompose";
 
 const LEFT_KEY = 37;
 const RIGHT_KEY = 39;
 
-export default compose(
-  withState("draggedCardInfo", "setDraggedCardInfo", null),
-  withHandlers({
-    onChangeSection: ({ sections, onChange }) => editedSection => {
+function withDeskAction(ComposedComponent) {
+  class DeskProps extends Component {
+    constructor(props) {
+      super(props);
+      this.state = {
+        draggedCardInfo: null
+      };
+      this.setDraggedCardInfo = this.setDraggedCardInfo.bind(this);
+      this.onChangeSection = this.onChangeSection.bind(this);
+      this.changeCardSection = this.changeCardSection.bind(this);
+    }
+
+    setDraggedCardInfo(newDraggedCardInfo) {
+      this.setState({ draggedCardInfo: newDraggedCardInfo });
+    }
+
+    onChangeSection(editedSection) {
+      const { sections, onChange } = this.props;
       const editedSectionIndex = sections.findIndex(
         section => section.id === editedSection.id
       );
@@ -21,17 +35,19 @@ export default compose(
       ];
       onChange(newSections);
     }
-  }),
-  withHandlers({
-    changeCardSection: props => ({ keyCode }) => {
-      if (!props.draggedCardInfo) {
+
+    changeCardSection({ keyCode }) {
+      const { props } = this;
+      console.log("props", props);
+      const { draggedCardInfo } = this.state;
+      if (!draggedCardInfo) {
         return;
       }
       const currentSectionIndex = props.sections.findIndex(
-        section => section.id === props.draggedCardInfo.sectionId
+        section => section.id === draggedCardInfo.sectionId
       );
       const cardIndex = props.sections[currentSectionIndex].cards.findIndex(
-        card => card.id === props.draggedCardInfo.cardId
+        card => card.id === draggedCardInfo.cardId
       );
       let nextSectionIndex = 0;
       if (keyCode === LEFT_KEY && currentSectionIndex !== 0) {
@@ -78,11 +94,27 @@ export default compose(
               currentSection,
               ...props.sections.slice(currentSectionIndex + 1)
             ];
-      props.setDraggedCardInfo({
-        cardId: props.draggedCardInfo.cardId,
+      this.setDraggedCardInfo({
+        cardId: draggedCardInfo.cardId,
         sectionId: nextSectionIndex
       });
       props.onChange(newSections);
     }
-  })
-)(Desk);
+
+    render() {
+      return (
+        <ComposedComponent
+          {...this.props}
+          changeCardSection={this.changeCardSection}
+          onChangeSection={this.onChangeSection}
+          draggedCardInfo={this.state.draggedCardInfo}
+          setDraggedCardInfo={this.setDraggedCardInfo}
+        />
+      );
+    }
+  }
+
+  return DeskProps;
+}
+
+export default withDeskAction(Desk);
