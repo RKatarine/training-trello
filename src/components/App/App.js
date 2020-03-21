@@ -8,7 +8,7 @@ const App = ({ sections, setSections }) => {
       <header className="header">
         <h2 className="header-text">My Desk</h2>
       </header>
-      <Desk sections={sections} onChange={setSections} />
+      <Desk sections={sections} setSections={setSections} />
     </div>
   );
 };

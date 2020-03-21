@@ -13,8 +13,7 @@ const Card = ({
   onChange,
   onSave,
   onMouseLeave,
-  onMouseEnter,
-  ...props
+  onMouseEnter
 }) => {
   return (
     <div>
@@ -29,7 +28,13 @@ const Card = ({
         >
           <p className={styles.p}>{text}</p>
           {showEditButton && (
-            <button onClick={setEditingMode} className={styles.edit__button}>
+            <button
+              onClick={event => {
+                setEditingMode(true);
+                event.stopPropagation();
+              }}
+              className={styles.edit__button}
+            >
               <EditIcon className={styles.icon} />
             </button>
           )}

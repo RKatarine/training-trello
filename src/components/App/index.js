@@ -3,8 +3,6 @@ import sections from "../../stubs/sections";
 import withLocalStorage from "../../hocs/withLocalStorage";
 import App from "./App";
 
-export default withAppAction(App);
-
 function withAppAction(ComposedComponent) {
   class AppProps extends Component {
     constructor(props) {
@@ -31,3 +29,5 @@ function withAppAction(ComposedComponent) {
 
   return AppProps;
 }
+
+export default withAppAction(App);

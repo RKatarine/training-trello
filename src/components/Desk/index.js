@@ -21,7 +21,7 @@ function withDeskAction(ComposedComponent) {
     }
 
     onChangeSection(editedSection) {
-      const { sections, onChange } = this.props;
+      const { sections, setSections } = this.props;
       const editedSectionIndex = sections.findIndex(
         section => section.id === editedSection.id
       );
@@ -33,12 +33,11 @@ function withDeskAction(ComposedComponent) {
         { ...sections[editedSectionIndex], ...editedSection },
         ...sections.slice(editedSectionIndex + 1)
       ];
-      onChange(newSections);
+      setSections(newSections);
     }
 
     changeCardSection({ keyCode }) {
       const { props } = this;
-      console.log("props", props);
       const { draggedCardInfo } = this.state;
       if (!draggedCardInfo) {
         return;
@@ -98,7 +97,7 @@ function withDeskAction(ComposedComponent) {
         cardId: draggedCardInfo.cardId,
         sectionId: nextSectionIndex
       });
-      props.onChange(newSections);
+      props.setSections(newSections);
     }
 
     render() {

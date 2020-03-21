@@ -29,7 +29,7 @@ function withCardAction(ComposedComponent) {
     }
 
     onSave() {
-      const { id, text, onEditCard } = this.props;
+      const { id, onEditCard } = this.props;
       onEditCard({ id, text: this.state.text });
       this.setEditingMode(false);
     }

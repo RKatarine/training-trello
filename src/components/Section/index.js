@@ -13,7 +13,7 @@ function withSectionAction(ComposedComponent) {
 
     setCards(cards) {
       const { props } = this;
-      props.onChange({
+      props.onChangeSection({
         id: props.id,
         title: props.title,
         cards
@@ -22,7 +22,6 @@ function withSectionAction(ComposedComponent) {
 
     onAddCard() {
       const { props } = this;
-      console.log(props);
       const id = nanoid();
       const newCards = [...props.cards, { id }];
       this.setCards(newCards);

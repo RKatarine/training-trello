@@ -16,7 +16,7 @@ const Desk = ({
           <Section
             key={section.id}
             {...section}
-            onChange={onChangeSection}
+            onChangeSection={onChangeSection}
             draggedCardInfo={draggedCardInfo}
             setDraggedCardInfo={setDraggedCardInfo}
           ></Section>
