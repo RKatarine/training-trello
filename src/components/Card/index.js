@@ -1,50 +1,56 @@
-import React from "react";
-import {
-  compose,
-  withState,
-  branch,
-  renderComponent,
-  mapProps,
-  withHandlers,
-  renameProp,
-  lifecycle
-} from "recompose";
+import React, { Component } from "react";
 import Card from "./Card";
-import CardEditor from "../CardEditor";
 
-const withHoverHandling = Component => ({ setShowEditButton, ...props }) => (
-  <div
-    onMouseEnter={() => setShowEditButton(true)}
-    onMouseLeave={() => setShowEditButton(false)}
-  >
-    <Component {...props} />
-  </div>
-);
-
-const withShowingEditOnHover = compose(
-  withState("showEditButton", "setShowEditButton", false),
-  withHoverHandling
-);
-
-const withEditing = compose(
-  withState("isEditing", "setEditingMode", false),
-  renameProp("text", "outerText"),
-  withState("text", "onChange", props => props.outerText),
-  lifecycle({
-    componentWillReceiveProps(nextProps) {
-      if (nextProps.outerText !== this.props.outerText) {
-        nextProps.onChange(nextProps.outerText);
-      }
+function withCardAction(ComposedComponent) {
+  class CardAction extends Component {
+    constructor(props) {
+      super(props);
+      this.state = {
+        showEditButton: false,
+        isEditing: false,
+        text: this.props.text
+      };
+      this.setShowEditButton = this.setShowEditButton.bind(this);
+      this.setEditingMode = this.setEditingMode.bind(this);
+      this.onChange = this.onChange.bind(this);
+      this.onSave = this.onSave.bind(this);
     }
-  }),
-  withHandlers({
-    onSave: ({ id, text, onEditCard, setEditingMode }) => () => {
-      onEditCard({ id, text });
-      setEditingMode(false);
-    }
-  }),
-  branch(({ isEditing }) => isEditing, renderComponent(CardEditor)),
-  mapProps(({ isEditing, ...props }) => props)
-);
 
-export default compose(withShowingEditOnHover, withEditing)(Card);
+    setShowEditButton(newShowEditButton) {
+      this.setState({ showEditButton: newShowEditButton });
+    }
+
+    setEditingMode(isEditing) {
+      this.setState({ isEditing });
+    }
+
+    onChange({ target: { value } }) {
+      this.setState({ text: value });
+    }
+
+    onSave() {
+      const { id, text, onEditCard } = this.props;
+      onEditCard({ id, text: this.state.text });
+      this.setEditingMode(false);
+    }
+
+    render() {
+      return (
+        <ComposedComponent
+          onMouseEnter={() => this.setShowEditButton(true)}
+          onMouseLeave={() => this.setShowEditButton(false)}
+          setEditingMode={this.setEditingMode}
+          onSave={this.onSave}
+          onChange={this.onChange}
+          showEditButton={this.state.showEditButton}
+          isEditing={this.state.isEditing}
+          {...this.props}
+        />
+      );
+    }
+  }
+
+  return CardAction;
+}
+
+export default withCardAction(Card);
