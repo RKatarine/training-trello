@@ -1,33 +1,25 @@
 import React, { Component } from "react";
-import sections from "../../stubs/sections";
 import withLocalStorage from "../../hocs/withLocalStorage";
 import App from "./App";
+import { observer } from "mobx-react";
+
+import { appStore } from "../../store/index";
 
 function withAppAction(ComposedComponent) {
   class AppProps extends Component {
     constructor(props) {
       super(props);
-      this.state = {
-        sections
-      };
-      this.setSections = this.setSections.bind(this);
-    }
-
-    setSections(newSections) {
-      this.setState({ sections: newSections });
     }
 
     render() {
+      const { sections, setSections } = appStore;
       return (
-        <ComposedComponent
-          sections={this.state.sections}
-          setSections={this.setSections}
-        ></ComposedComponent>
+        <ComposedComponent sections={sections} setSections={setSections} />
       );
     }
   }
 
-  return AppProps;
+  return observer(AppProps);
 }
 
 export default withAppAction(App);
